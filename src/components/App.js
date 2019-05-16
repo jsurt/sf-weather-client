@@ -28,7 +28,7 @@ export default class App extends React.Component {
     fetch(`${SERVER_URL}/weather`)
       .then(data => data.json())
       .then(json => {
-        console.log("The weather has been fetched");
+        console.log("The weather has been fetched", json);
         // this.setState({ getWeatherSuccess: true, weatherData: json });
         setTimeout(
           () => this.setState({ getWeatherSuccess: true, weatherData: json }),

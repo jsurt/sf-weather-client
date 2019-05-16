@@ -2,14 +2,17 @@ import React from "react";
 
 export default class WeatherResults extends React.Component {
   render() {
-    const { error } = this.props;
-    const {
-      summary,
-      temperature,
-      precipProbability
-    } = this.props.data.currently;
-    console.log(error);
-    if (!error) {
+    console.log(this.props);
+    const { request, success, error, data } = this.props;
+    let summary, temperature, precipProbability;
+    if (data !== null) {
+      summary = data.currently.summary;
+      temperature = data.currently.temperature;
+      precipProbability = data.currently.precipProbability;
+    }
+    if (request && !success) {
+      return (<p>Getting data</p>);
+    } else if (success) {
       return (
         <div>
           <p>
