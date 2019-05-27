@@ -7,13 +7,16 @@ export default function RequestWeatherBtn(props) {
         Check the Weather
       </button>
     );
+  } else if (props.requesting) {
+    return <noscript />;
+  } else {
+    return (
+      <button
+        className="getWeatherBtn refresh"
+        onClick={() => props.refreshWeather()}
+      >
+        Refresh
+      </button>
+    );
   }
-  return (
-    <button
-      className="getWeatherBtn refresh"
-      onClick={() => props.getWeather()}
-    >
-      Refresh
-    </button>
-  );
 }

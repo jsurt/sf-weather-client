@@ -4,15 +4,27 @@ import WeatherResults from "./WeatherResults";
 
 export default class Dashboard extends React.Component {
   render() {
-    const { request, success, error, data, getWeather } = this.props;
-    console.log(data);
+    const {
+      request,
+      success,
+      error,
+      requesting,
+      data,
+      getWeather,
+      refreshWeather
+    } = this.props;
     if (!request) {
       return <RequestWeatherBtn request={request} getWeather={getWeather} />;
     } else {
       return (
         <React.Fragment>
-          <WeatherResults request={request} success={success} error={error} data={data} />
-          <RequestWeatherBtn request={request} getWeather={getWeather} />
+          <WeatherResults success={success} error={error} data={data} />
+          <RequestWeatherBtn
+            request={request}
+            requesting={requesting}
+            getWeather={getWeather}
+            refreshWeather={refreshWeather}
+          />
         </React.Fragment>
       );
     }
