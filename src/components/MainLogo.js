@@ -2,11 +2,15 @@ import React from "react";
 import { Spring } from "react-spring/renderprops";
 import logo from "../images/sf-logo-cropped.png";
 
+const logoStyles = {
+  borderRadius: "50%"
+}
+
 export default function MainLogo(props) {
   if (!props.requesting) {
     return (
       <img
-        style={{ borderRadius: "50%" }}
+        style={logoStyles}
         src={logo}
         alt="Stephen Foster Story logo"
       />

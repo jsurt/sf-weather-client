@@ -1,7 +1,8 @@
 import React from "react";
 
 const wrapStyles = {
-  display: "flex"
+  display: "flex",
+  justifyContent: "center"
 };
 
 const inputStyles = {};

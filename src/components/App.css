@@ -1,1 +1,10 @@
+main {
+    width: 100%;
+    text-align: center;
+}
 
+.selectWeatherSec {
+    width: 320px;
+    margin: auto;
+    text-align: center;
+}

@@ -18,7 +18,7 @@ export default class WeatherResults extends React.Component {
         <div>
           <p>
             It is {temperature} &deg;F and {summary} in Bardstown with a{" "}
-            {precipProbability}% chance of rain
+            {precipProbability*100}% chance of rain
           </p>
         </div>
       );
