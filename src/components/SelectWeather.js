@@ -1,40 +1,52 @@
 import React from "react";
+import { Spring } from "react-spring/renderprops";
 
-const wrapStyles = {
-  display: "flex",
-  justifyContent: "center"
-};
+export default class SelectWeather extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hover: false
+    };
+  }
 
-const inputStyles = {};
+  styles = {
+    wrapStyles: {
+      display: "flex",
+      justifyContent: "center"
+    },
+    selectWeatherBtnStyles: {
+      borderRadius: "10px",
+      height: "25px",
+      width: "162px"
+    },
+    hover: {
+      background: "#eeeeee",
+      cursor: "pointer"
+    }
+  };
 
-const labelStyles = {};
-
-export default function SelectWeather(props) {
-  return (
-    <div style={wrapStyles} className="radioBtnWrap">
-      <input
-        type="radio"
-        id="showtime"
-        name="weather-switch"
-        value="showtime"
-        defaultChecked={true}
-        onClick={e => props.selectWeather(e)}
-        style={inputStyles}
-      />
-      <label style={labelStyles} htmlFor="showtime">
-        Showtime
-      </label>
-      <input
-        type="radio"
-        id="current"
-        name="weather-switch"
-        value="current"
-        onClick={e => props.selectWeather(e)}
-        style={inputStyles}
-      />
-      <label style={labelStyles} htmlFor="showtime">
-        Currently
-      </label>
-    </div>
-  );
+  render() {
+    const { showtimeWeather, selectWeather } = this.props;
+    const { wrapStyles, selectWeatherBtnStyles, hover } = this.styles;
+    const selectWeatherBtnText = showtimeWeather
+      ? "Current weather"
+      : "Showtime weather";
+    return (
+      <div style={wrapStyles} className="selectWeatherBtnWrap">
+        <button
+          className="selectWeatherBtn current"
+          onClick={() => selectWeather()}
+          onMouseOver={() => this.setState({ hover: true })}
+          onMouseLeave={() => this.setState({ hover: false })}
+          style={
+            this.state.hover
+              ? Object.assign({}, selectWeatherBtnStyles, hover)
+              : selectWeatherBtnStyles
+          }
+        >
+          {selectWeatherBtnText}
+        </button>
+      </div>
+    );
+  }
 }

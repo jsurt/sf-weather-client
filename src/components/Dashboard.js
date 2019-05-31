@@ -22,7 +22,6 @@ export default class Dashboard extends React.Component {
           <RequestWeatherBtn
             request={request}
             requesting={requesting}
-            getWeather={getWeather}
             refreshWeather={refreshWeather}
           />
         </React.Fragment>

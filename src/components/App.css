@@ -8,3 +8,7 @@ main {
     margin: auto;
     text-align: center;
 }
+
+button:focus {
+    outline: none;
+}

@@ -67,13 +67,14 @@ export default class App extends React.Component {
       });
   }
 
-  selectWeatherTime(event) {
-    console.log(event.target.value);
-    if (event.target.value === "showtime") {
-      this.setState({ showtimeWeather: true });
-    } else {
+  selectWeatherTime() {
+    const { showtimeWeather } = this.state;
+    if (showtimeWeather) {
       this.setState({ showtimeWeather: false });
+    } else {
+      this.setState({ showtimeWeather: true });
     }
+    this.handleRefreshWeather();
   }
 
   render() {

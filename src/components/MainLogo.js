@@ -3,17 +3,16 @@ import { Spring } from "react-spring/renderprops";
 import logo from "../images/sf-logo-cropped.png";
 
 const logoStyles = {
-  borderRadius: "50%"
-}
+  borderRadius: "50%",
+  width: "420px",
+  display: "block",
+  margin: "auto"
+};
 
 export default function MainLogo(props) {
   if (!props.requesting) {
     return (
-      <img
-        style={logoStyles}
-        src={logo}
-        alt="Stephen Foster Story logo"
-      />
+      <img style={logoStyles} src={logo} alt="Stephen Foster Story logo" />
     );
   } else {
     return (
