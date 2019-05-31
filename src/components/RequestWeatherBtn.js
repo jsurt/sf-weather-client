@@ -1,5 +1,5 @@
 import React from "react";
-import { Transition } from "react-spring/renderprops";
+import { Transition, config } from "react-spring/renderprops";
 
 export default class RequestWeatherBtn extends React.Component {
   constructor(props) {
@@ -13,7 +13,6 @@ export default class RequestWeatherBtn extends React.Component {
     getWeatherBtnStyles: {
       height: "25px",
       width: "162px",
-      margin: "auto",
       borderRadius: "1px",
       border: "none",
       background: "#bbbbbb"
@@ -63,18 +62,23 @@ export default class RequestWeatherBtn extends React.Component {
         </button>
       );
     }
-    const item = button;
+    const show = button;
     return (
       <Transition
-        items={item}
+        items={show}
         from={{
-          overflow: "hidden",
-          height: 0
+          position: "relative",
+          right: 500,
+          opacity: 0
         }}
-        enter={{ height: "auto" }}
-        // trail={500}
+        enter={{
+          right: 0,
+          opacity: 1
+        }}
+        trail={500}
+        config={{ tension: 150, friction: 14 }}
       >
-        {item => props => <div style={props}>{button}</div>}
+        {show => props => <div style={props}>{show}</div>}
       </Transition>
     );
   }

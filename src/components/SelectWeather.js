@@ -1,5 +1,5 @@
 import React from "react";
-import { Spring } from "react-spring/renderprops";
+import { Transition, config } from "react-spring/renderprops";
 
 export default class SelectWeather extends React.Component {
   constructor(props) {
@@ -15,9 +15,11 @@ export default class SelectWeather extends React.Component {
       justifyContent: "center"
     },
     selectWeatherBtnStyles: {
-      borderRadius: "10px",
       height: "25px",
-      width: "162px"
+      width: "162px",
+      borderRadius: "1px",
+      border: "none",
+      background: "#bbbbbb"
     },
     hover: {
       background: "#eeeeee",
@@ -31,22 +33,31 @@ export default class SelectWeather extends React.Component {
     const selectWeatherBtnText = showtimeWeather
       ? "Current weather"
       : "Showtime weather";
+    const button = (
+      <button
+        className="selectWeatherBtn current"
+        onClick={() => selectWeather()}
+        onMouseOver={() => this.setState({ hover: true })}
+        onMouseLeave={() => this.setState({ hover: false })}
+        style={
+          this.state.hover
+            ? Object.assign({}, selectWeatherBtnStyles, hover)
+            : selectWeatherBtnStyles
+        }
+      >
+        {selectWeatherBtnText}
+      </button>
+    );
+    const item = button;
     return (
-      <div style={wrapStyles} className="selectWeatherBtnWrap">
-        <button
-          className="selectWeatherBtn current"
-          onClick={() => selectWeather()}
-          onMouseOver={() => this.setState({ hover: true })}
-          onMouseLeave={() => this.setState({ hover: false })}
-          style={
-            this.state.hover
-              ? Object.assign({}, selectWeatherBtnStyles, hover)
-              : selectWeatherBtnStyles
-          }
-        >
-          {selectWeatherBtnText}
-        </button>
-      </div>
+      <Transition
+        items={item}
+        from={{ position: "relative", left: 500, opacity: 0 }}
+        enter={{ left: 0, opacity: 1 }}
+        config={{ tension: 150, friction: 14 }}
+      >
+        {item => props => <div style={props}>{button}</div>}
+      </Transition>
     );
   }
 }

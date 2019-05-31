@@ -12,3 +12,22 @@ main {
 button:focus {
     outline: none;
 }
+
+.mainLogo {
+    border-radius: 50%;
+    width: 420px;
+    display: inline-block;
+    margin: auto;
+}
+
+@media only screen and (max-width: 425px) {
+    .mainLogo {
+        width: 350px;
+    }
+} 
+
+@media only screen and (max-width: 350px) {
+    .mainLogo {
+        width: 250px;
+    }
+} 

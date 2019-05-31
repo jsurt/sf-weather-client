@@ -102,17 +102,17 @@ export default class App extends React.Component {
     };
 
     //Different styles for requesting data, successfully received data, or data request errored out
-    if (getWeatherError) {
-      mainStyle = Object.assign({}, mainStyle, {
-        background: "#ff0000"
-      });
-    } else if (getWeatherSuccess) {
-      mainStyle = calcBackgroundColor(weatherData.currently.precipProbability);
-    } else if (getWeatherRequest) {
-      mainStyle = Object.assign({}, mainStyle, {
-        background: "#999999"
-      });
-    }
+    // if (getWeatherError) {
+    //   mainStyle = Object.assign({}, mainStyle, {
+    //     background: "#ff0000"
+    //   });
+    // } else if (getWeatherSuccess) {
+    //   mainStyle = calcBackgroundColor(weatherData.currently.precipProbability);
+    // } else if (getWeatherRequest) {
+    //   mainStyle = Object.assign({}, mainStyle, {
+    //     background: "#999999"
+    //   });
+    // }
     return (
       <main style={mainStyle}>
         <section className="selectWeatherSec">
