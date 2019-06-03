@@ -1,5 +1,5 @@
 import React from "react";
-import { Transition, config } from "react-spring/renderprops";
+import { Transition } from "react-spring/renderprops";
 
 export default class RequestWeatherBtn extends React.Component {
   constructor(props) {
@@ -31,7 +31,10 @@ export default class RequestWeatherBtn extends React.Component {
       button = (
         <button
           className="getWeatherBtn"
-          onClick={() => getWeather()}
+          onClick={() => {
+            this.setState({ hover: false });
+            getWeather();
+          }}
           onMouseOver={() => this.setState({ hover: true })}
           onMouseLeave={() => this.setState({ hover: false })}
           style={
@@ -49,7 +52,10 @@ export default class RequestWeatherBtn extends React.Component {
       button = (
         <button
           className="getWeatherBtn refresh"
-          onClick={() => refreshWeather()}
+          onClick={() => {
+            this.setState({ hover: false });
+            refreshWeather();
+          }}
           onMouseOver={() => this.setState({ hover: true })}
           onMouseLeave={() => this.setState({ hover: false })}
           style={

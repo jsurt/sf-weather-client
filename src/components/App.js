@@ -88,35 +88,16 @@ export default class App extends React.Component {
       showtimeWeather
     } = this.state;
 
-    //Styles
+    //Styles for <main>
     let mainStyle = {
       height: "100%"
     };
 
-    //Get color for background if request is successful
-    const calcBackgroundColor = probability => {
-      const hue = probability * 100 * 1.36 + 112;
-      return (mainStyle = Object.assign({}, mainStyle, {
-        background: `hsl(${hue}, 100%, 58%)`
-      }));
-    };
-
-    //Different styles for requesting data, successfully received data, or data request errored out
-    // if (getWeatherError) {
-    //   mainStyle = Object.assign({}, mainStyle, {
-    //     background: "#ff0000"
-    //   });
-    // } else if (getWeatherSuccess) {
-    //   mainStyle = calcBackgroundColor(weatherData.currently.precipProbability);
-    // } else if (getWeatherRequest) {
-    //   mainStyle = Object.assign({}, mainStyle, {
-    //     background: "#999999"
-    //   });
-    // }
     return (
       <main style={mainStyle}>
         <section className="selectWeatherSec">
           <SelectWeather
+            requesting={requesting}
             showtimeWeather={showtimeWeather}
             selectWeather={this.selectWeatherTime}
           />

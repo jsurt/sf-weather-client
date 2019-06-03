@@ -1,5 +1,5 @@
 import React from "react";
-import { Transition, config } from "react-spring/renderprops";
+import { Transition } from "react-spring/renderprops";
 
 export default class SelectWeather extends React.Component {
   constructor(props) {
@@ -10,10 +10,6 @@ export default class SelectWeather extends React.Component {
   }
 
   styles = {
-    wrapStyles: {
-      display: "flex",
-      justifyContent: "center"
-    },
     selectWeatherBtnStyles: {
       height: "25px",
       width: "162px",
@@ -28,8 +24,8 @@ export default class SelectWeather extends React.Component {
   };
 
   render() {
-    const { showtimeWeather, selectWeather } = this.props;
-    const { wrapStyles, selectWeatherBtnStyles, hover } = this.styles;
+    const { requesting, showtimeWeather, selectWeather } = this.props;
+    const { selectWeatherBtnStyles, hover } = this.styles;
     const selectWeatherBtnText = showtimeWeather
       ? "Current weather"
       : "Showtime weather";
@@ -44,6 +40,7 @@ export default class SelectWeather extends React.Component {
             ? Object.assign({}, selectWeatherBtnStyles, hover)
             : selectWeatherBtnStyles
         }
+        disabled={requesting}
       >
         {selectWeatherBtnText}
       </button>
