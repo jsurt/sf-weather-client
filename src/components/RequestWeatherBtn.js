@@ -13,6 +13,7 @@ export default class RequestWeatherBtn extends React.Component {
     getWeatherBtnStyles: {
       height: "25px",
       width: "162px",
+      marginTop: "50px",
       borderRadius: "1px",
       border: "none",
       background: "#bbbbbb"
