@@ -42,11 +42,12 @@ export default class App extends React.Component {
   requestWeather() {
     const { showtimeWeather } = this.state;
     let url;
-    if (showtimeWeather === true) {
+    if (showtimeWeather) {
       url = `${SERVER_URL}/showtime_weather`;
     } else {
       url = `${SERVER_URL}/weather`;
     }
+    console.log(url);
     fetch(url)
       .then(data => data.json())
       .then(json => {
@@ -71,10 +72,11 @@ export default class App extends React.Component {
     const { showtimeWeather } = this.state;
     if (showtimeWeather) {
       this.setState({ showtimeWeather: false });
+      return this.handleRefreshWeather();
     } else {
       this.setState({ showtimeWeather: true });
+      return this.handleRefreshWeather();
     }
-    this.handleRefreshWeather();
   }
 
   render() {

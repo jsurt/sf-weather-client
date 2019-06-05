@@ -32,7 +32,9 @@ export default class SelectWeather extends React.Component {
     const button = (
       <button
         className="selectWeatherBtn current"
-        onClick={() => selectWeather()}
+        onClick={() => {
+          selectWeather();
+        }}
         onMouseOver={() => this.setState({ hover: true })}
         onMouseLeave={() => this.setState({ hover: false })}
         style={
