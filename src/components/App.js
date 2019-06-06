@@ -51,7 +51,7 @@ export default class App extends React.Component {
     fetch(url)
       .then(data => data.json())
       .then(json => {
-        console.log("The weather has been fetched", json);
+        console.log("Data fetched");
         setTimeout(
           () =>
             this.setState({
@@ -70,13 +70,9 @@ export default class App extends React.Component {
 
   selectWeatherTime() {
     const { showtimeWeather } = this.state;
-    if (showtimeWeather) {
-      this.setState({ showtimeWeather: false });
-      return this.handleRefreshWeather();
-    } else {
-      this.setState({ showtimeWeather: true });
-      return this.handleRefreshWeather();
-    }
+    this.setState({ showtimeWeather: !showtimeWeather }, () => {
+      this.handleRefreshWeather();
+    });
   }
 
   render() {
