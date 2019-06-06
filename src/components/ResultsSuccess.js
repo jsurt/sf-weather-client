@@ -10,10 +10,15 @@ const formatIconString = icon => {
 
 const weatherDataStyles = {
   section: {
+    padding: "10px",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    justifyItems: "center",
+    alignItems: "center"
   },
   span: {
+    display: "inline-block",
+    height: "50px",
     fontSize: "34px",
     fontFamily: "Raleway, sans-serif",
     color: "#333333"
