@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import { useTransition, animated, config } from "react-spring";
 
 const style = {
-  marginTop: "25px"
+  container: { marginTop: "25px" },
+  text: { fontFamily: "Raleway, sans-serif" }
 };
 
 export default function ResultsRequesting(props) {
   const string = "Getting data";
   const letters = [...string].map((item, index) => {
-    return <span key={index}>{item}</span>;
+    return (
+      <span key={index} style={style.text}>
+        {item}
+      </span>
+    );
   });
   const [items] = useState([...letters]);
   const transitions = useTransition(items, item => item.key, {
@@ -18,7 +23,7 @@ export default function ResultsRequesting(props) {
     trail: 150
   });
   return (
-    <div style={style}>
+    <div style={style.container}>
       {transitions.map(({ item, key, props }) => {
         return (
           <animated.span key={key} style={props}>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Skycons from "react-skycons";
-import { useTransition, animated } from "react-spring";
+import { useSpring, useTransition, animated } from "react-spring";
 
 const formatIconString = icon => {
   const uppercase = icon.toUpperCase();
@@ -10,10 +10,13 @@ const formatIconString = icon => {
 
 const weatherDataStyles = {
   section: {
-    border: "1px solid black"
+    display: "flex",
+    justifyContent: "center"
   },
   span: {
-    color: "#0000ff"
+    fontSize: "34px",
+    fontFamily: "Raleway, sans-serif",
+    color: "#333333"
   }
 };
 
@@ -23,7 +26,7 @@ export default function ResultsSuccess(props) {
   const temp = `${temperature}${String.fromCharCode(176)}F `;
   const skycon = (
     <Skycons
-      color="black"
+      color="#333333"
       icon={`${formattedIconStr}`}
       autoplay={true}
       style={{ width: "90px", height: "45px" }}
@@ -37,6 +40,10 @@ export default function ResultsSuccess(props) {
       </span>
     );
   });
+  const spring = useSpring({
+    from: { background: "#ffffff" },
+    to: { background: "#eeeeee" }
+  });
   const [items] = useState([...spans]);
   const transitions = useTransition(items, item => item.key, {
     from: { position: "relative", left: 500, opacity: 0 },
@@ -44,7 +51,7 @@ export default function ResultsSuccess(props) {
     trail: 250
   });
   return (
-    <section style={weatherDataStyles.section}>
+    <animated.section style={{ ...spring, ...weatherDataStyles.section }}>
       {transitions.map(({ item, key, props }) => {
         return (
           <animated.span key={key} style={props}>
@@ -52,6 +59,6 @@ export default function ResultsSuccess(props) {
           </animated.span>
         );
       })}
-    </section>
+    </animated.section>
   );
 }
