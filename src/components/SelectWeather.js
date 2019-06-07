@@ -24,16 +24,17 @@ export default class SelectWeather extends React.Component {
   };
 
   render() {
-    const { requesting, showtimeWeather, selectWeather } = this.props;
+    const { requesting, showtimeWeather, selectWeather, refreshWeather } = this.props;
     const { selectWeatherBtnStyles, hover } = this.styles;
     const selectWeatherBtnText = showtimeWeather
       ? "Current weather"
       : "Showtime weather";
     const button = (
       <button
-        className="selectWeatherBtn current"
-        onClick={() => {
-          selectWeather();
+        className="selectWeatherBtn"
+        value={showtimeWeather ? "current" : "showtime"}
+        onClick={(e) => {
+          selectWeather(e);
         }}
         onMouseOver={() => this.setState({ hover: true })}
         onMouseLeave={() => this.setState({ hover: false })}

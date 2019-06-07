@@ -21,8 +21,12 @@ export default class App extends React.Component {
     this.selectWeatherTime = this.selectWeatherTime.bind(this);
   }
 
+  componentDidUpdate() {
+    console.log(this.state.showtimeWeather);
+  }
+
   handleRefreshWeather() {
-    console.log("Refreshing data");
+    console.log(this.state.showtimeWeather);
     this.setState({
       getWeatherRequest: false,
       getWeatherSuccess: false,
@@ -68,15 +72,16 @@ export default class App extends React.Component {
       });
   }
 
-  selectWeatherTime() {
-    const { showtimeWeather } = this.state;
+  selectWeatherTime(event) {
+    console.log("Switching endpoints");
+    const {showtimeWeather} = this.state;
     if (showtimeWeather) {
-      this.setState({ showtimeWeather: false });
-      return this.handleRefreshWeather();
+      this.setState(state => ({ showtimeWeather: false }));
+      console.log(showtimeWeather);
     } else {
-      this.setState({ showtimeWeather: true });
-      return this.handleRefreshWeather();
+      this.setState(state => ({ showtimeWeather: true }));
     }
+    //this.handleRefreshWeather();
   }
 
   render() {
@@ -102,6 +107,7 @@ export default class App extends React.Component {
             requesting={requesting}
             showtimeWeather={showtimeWeather}
             selectWeather={this.selectWeatherTime}
+            refreshWeather={this.handleRefreshWeather}
           />
         </section>
         <MainLogo requesting={requesting} request={getWeatherRequest} />
