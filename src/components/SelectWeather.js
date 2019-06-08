@@ -1,5 +1,5 @@
 import React from "react";
-import { Transition } from "react-spring/renderprops";
+import { Spring, Transition } from "react-spring/renderprops";
 
 const styles = {
   track: {
@@ -26,6 +26,19 @@ const styles = {
   }
 };
 
+const getMarkerStyles = (showtime, hover) => {
+  let currentStyle = Object.assign({}, styles.marker, {left: "54px"})
+  if(showtime && !hover) {
+    return {...styles.marker}
+  } else if (!showtime && !hover) {
+    return {...currentStyle}
+  } else if (showtime && hover) {
+    return {...styles.marker, ...styles.hover}
+  } else {
+    return {...currentStyle, ...styles.hover}
+  }
+}
+
 export default class SelectWeather extends React.Component {
   constructor(props) {
     super(props);
@@ -34,32 +47,23 @@ export default class SelectWeather extends React.Component {
     };
   }
 
-  getSliderMarkerStyles(showtime, hover) {
-    let currentStyle = Object.assign({}, styles.marker, {left: "54px"})
-    if(showtime && !hover) {
-      return {...styles.marker}
-    } else if (!showtime && !hover) {
-      return {...currentStyle}
-    } else if (showtime && hover) {
-      return {...styles.marker, ...styles.hover}
-    } else {
-      return {...currentStyle, ...styles.hover}
-    }
-  }
-
   render() {
     const { requesting, showtimeWeather, selectWeather } = this.props;
     const { track, marker, hover } = styles;
     const slider = (
-      <div
-        style={track}
+      <Transition 
+        from={{ left: showtimeWeather ? "0px" : "54px" }}
       >
-        <div style={this.getSliderMarkerStyles(showtimeWeather, this.state.hover)} 
-          onClick={() => selectWeather()}
-          onMouseOver={() => this.setState({hover: true})}
-          onMouseLeave={() => this.setState({hover: false})}
-        />
-      </div>
+        <div
+          style={track}
+        >
+          <div style={getMarkerStyles(showtimeWeather, this.state.hover)} 
+            onClick={() => selectWeather()}
+            onMouseOver={() => this.setState({hover: true})}
+            onMouseLeave={() => this.setState({hover: false})}
+          />
+        </div>
+      </Transition>
     );
     const item = slider;
     return (
