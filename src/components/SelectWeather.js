@@ -1,5 +1,5 @@
 import React from "react";
-import { Spring, Transition } from "react-spring/renderprops";
+import { Spring, Transition, animated } from "react-spring/renderprops";
 
 const styles = {
   track: {
@@ -16,7 +16,6 @@ const styles = {
     width: "21px",
     height: "21px",
     position: "relative",
-    left: "0px",
     borderRadius: "50%",
     background: "#000000"
   },
@@ -43,27 +42,37 @@ export default class SelectWeather extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hover: false
+      hover: false,
+      toggle: true
     };
   }
 
   render() {
+    const { toggle } = this.state;
     const { requesting, showtimeWeather, selectWeather } = this.props;
     const { track, marker, hover } = styles;
     const slider = (
-      <Transition 
-        from={{ left: showtimeWeather ? "0px" : "54px" }}
-      >
+      // <Transition 
+      //   from={{ left: showtimeWeather ? "0px" : "54px" }}
+      // >
         <div
           style={track}
         >
-          <div style={getMarkerStyles(showtimeWeather, this.state.hover)} 
-            onClick={() => selectWeather()}
-            onMouseOver={() => this.setState({hover: true})}
-            onMouseLeave={() => this.setState({hover: false})}
-          />
+          <Transition 
+            from={{left: toggle ? "54px" : "0px"}}
+            to={{left: toggle ? "0px" : "54px"}}
+          >
+            <div style={getMarkerStyles(showtimeWeather, this.state.hover)} 
+              onClick={() => {
+                this.setState({ toggle: !this.state.toggle });
+                selectWeather();
+              }}
+              onMouseOver={() => this.setState({hover: true})}
+              onMouseLeave={() => this.setState({hover: false})}
+            />
+          </Transition>
         </div>
-      </Transition>
+      // </Transition>
     );
     const item = slider;
     return (

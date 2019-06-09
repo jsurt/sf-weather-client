@@ -21,12 +21,8 @@ export default class App extends React.Component {
     this.selectWeatherTime = this.selectWeatherTime.bind(this);
   }
 
-  componentDidUpdate() {
-    console.log(this.state.showtimeWeather);
-  }
-
   handleRefreshWeather() {
-    console.log(this.state.showtimeWeather);
+    // console.log(this.state.showtimeWeather);
     this.setState({
       getWeatherRequest: false,
       getWeatherSuccess: false,
@@ -38,7 +34,7 @@ export default class App extends React.Component {
   }
 
   handleRequestWeather() {
-    console.log("Request for weather made");
+    // console.log("Request for weather made");
     this.setState({ getWeatherRequest: true, requesting: true });
     this.requestWeather();
   }
@@ -51,11 +47,11 @@ export default class App extends React.Component {
     } else {
       url = `${SERVER_URL}/weather`;
     }
-    console.log(url);
+    // console.log(url);
     fetch(url)
       .then(data => data.json())
       .then(json => {
-        console.log("Data fetched");
+        // console.log("Data fetched");
         setTimeout(
           () =>
             this.setState({
