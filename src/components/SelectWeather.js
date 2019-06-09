@@ -88,6 +88,20 @@ export default class SelectWeather extends React.Component {
   }
 }
 
+/*
+  ***IMPORTANT STEPS TO FOLLOW***MIGHT WORK***
+  1. Set "slider" equal to jsx elements making a track marker
+  2. Set "slider" to equal "item"
+  3. Do this: 
+    <Transitions
+      items={item}
+      from={...}
+      to={...}
+    >
+    {item => props => <div style={props}>{item}</div>}
+    </Transition>
+*/
+
 // const selectWeatherBtnText = showtimeWeather
 // ? "Current weather"
 // : "Showtime weather";
