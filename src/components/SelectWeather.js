@@ -17,7 +17,8 @@ const styles = {
     height: "21px",
     position: "relative",
     borderRadius: "50%",
-    background: "#000000"
+    background: "#000000",
+    cursor: "pointer"
   },
   hover: {
     background: "#333333",
@@ -26,17 +27,17 @@ const styles = {
 };
 
 const getMarkerStyles = (showtime, hover) => {
-  let currentStyle = Object.assign({}, styles.marker, {left: "54px"})
-  if(showtime && !hover) {
-    return {...styles.marker}
+  let currentStyle = Object.assign({}, styles.marker, { left: "54px" });
+  if (showtime && !hover) {
+    return { ...styles.marker };
   } else if (!showtime && !hover) {
-    return {...currentStyle}
+    return { ...currentStyle };
   } else if (showtime && hover) {
-    return {...styles.marker, ...styles.hover}
+    return { ...styles.marker, ...styles.hover };
   } else {
-    return {...currentStyle, ...styles.hover}
+    return { ...currentStyle, ...styles.hover };
   }
-}
+};
 
 export default class SelectWeather extends React.Component {
   constructor(props) {
@@ -51,28 +52,18 @@ export default class SelectWeather extends React.Component {
     const { toggle } = this.state;
     const { requesting, showtimeWeather, selectWeather } = this.props;
     const { track, marker, hover } = styles;
+
     const slider = (
-      // <Transition 
-      //   from={{ left: showtimeWeather ? "0px" : "54px" }}
-      // >
-        <div
-          style={track}
-        >
-          <Transition 
-            from={{left: toggle ? "54px" : "0px"}}
-            to={{left: toggle ? "0px" : "54px"}}
-          >
-            <div style={getMarkerStyles(showtimeWeather, this.state.hover)} 
-              onClick={() => {
-                this.setState({ toggle: !this.state.toggle });
-                selectWeather();
-              }}
-              onMouseOver={() => this.setState({hover: true})}
-              onMouseLeave={() => this.setState({hover: false})}
+      <div style={track}>
+        <Spring to={{ left: this.state.toggle ? "0px" : "54px" }}>
+          {props => (
+            <animated.div
+              style={{ ...marker, ...props }}
+              onClick={() => this.setState({ toggle: !toggle })}
             />
-          </Transition>
-        </div>
-      // </Transition>
+          )}
+        </Spring>
+      </div>
     );
     const item = slider;
     return (
@@ -87,46 +78,3 @@ export default class SelectWeather extends React.Component {
     );
   }
 }
-
-/*
-  ***IMPORTANT STEPS TO FOLLOW***MIGHT WORK***
-  1. Set "slider" equal to jsx elements making a track marker
-  2. Set "slider" to equal "item"
-  3. Do this: 
-    <Transitions
-      items={item}
-      from={...}
-      to={...}
-    >
-    {item => props => <div style={props}>{item}</div>}
-    </Transition>
-*/
-
-// const selectWeatherBtnText = showtimeWeather
-// ? "Current weather"
-// : "Showtime weather";
-// const button = (
-//   <button
-//     className="selectWeatherBtn current"
-//     onClick={() => {
-//       selectWeather();
-//     }}
-//     onMouseOver={() => this.setState({ hover: true })}
-//     onMouseLeave={() => this.setState({ hover: false })}
-//     style={
-//       this.state.hover
-//         ? Object.assign({}, selectWeatherBtnStyles, hover)
-//         : selectWeatherBtnStyles
-//     }
-//     disabled={requesting}
-//   >
-//     {selectWeatherBtnText}
-//   </button>
-// );
-// selectWeatherBtnStyles: {
-//   height: "25px",
-//   width: "162px",
-//   borderRadius: "1px",
-//   border: "none",
-//   background: "#bbbbbb"
-// },
