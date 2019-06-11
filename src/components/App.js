@@ -87,9 +87,16 @@ export default class App extends React.Component {
       height: "100%"
     };
 
+    let selectWeatherSecStyle = {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      fontFamily: "Raleway, sans-serif"
+    };
+
     return (
       <main style={mainStyle}>
-        <section className="selectWeatherSec">
+        <section style={selectWeatherSecStyle} className="selectWeatherSec">
           <SelectWeather
             requesting={requesting}
             showtimeWeather={showtimeWeather}

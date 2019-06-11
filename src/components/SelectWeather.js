@@ -23,19 +23,9 @@ const styles = {
   hover: {
     background: "#333333",
     cursor: "pointer"
-  }
-};
-
-const getMarkerStyles = (showtime, hover) => {
-  let currentStyle = Object.assign({}, styles.marker, { left: "54px" });
-  if (showtime && !hover) {
-    return { ...styles.marker };
-  } else if (!showtime && !hover) {
-    return { ...currentStyle };
-  } else if (showtime && hover) {
-    return { ...styles.marker, ...styles.hover };
-  } else {
-    return { ...currentStyle, ...styles.hover };
+  },
+  label: {
+    padding: "5px"
   }
 };
 
@@ -51,11 +41,24 @@ export default class SelectWeather extends React.Component {
   render() {
     const { toggle } = this.state;
     const { requesting, showtimeWeather, selectWeather } = this.props;
-    const { track, marker, hover } = styles;
-
+    const { track, marker, hover, label } = styles;
+    const showtimeLabel = (
+      <Spring to={{ opacity: toggle ? 1 : 0.5 }}>
+        {props => (
+          <animated.p style={{ ...label, ...props }}>Showtime</animated.p>
+        )}
+      </Spring>
+    );
+    const currentLabel = (
+      <Spring to={{ opacity: toggle ? 0.5 : 1 }}>
+        {props => (
+          <animated.p style={{ ...label, ...props }}>Current</animated.p>
+        )}
+      </Spring>
+    );
     const slider = (
       <div style={track}>
-        <Spring to={{ left: this.state.toggle ? "0px" : "54px" }}>
+        <Spring to={{ left: toggle ? "0px" : "54px" }}>
           {props => (
             <animated.div
               style={{ ...marker, ...props }}
@@ -73,7 +76,13 @@ export default class SelectWeather extends React.Component {
         enter={{ left: 0, opacity: 1 }}
         config={{ tension: 150, friction: 14 }}
       >
-        {item => props => <div style={props}>{slider}</div>}
+        {item => props => (
+          <React.Fragment>
+            {showtimeLabel}
+            <div style={props}>{slider}</div>
+            {currentLabel}
+          </React.Fragment>
+        )}
       </Transition>
     );
   }
