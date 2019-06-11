@@ -66,8 +66,8 @@ export default class App extends React.Component {
 
   selectWeatherTime() {
     const { showtimeWeather } = this.state;
-    this.setState({ showtimeWeather: !showtimeWeather }, () => {
-      this.handleRefreshWeather();
+    this.setState(prevState => {
+      return { showtimeWeather: !prevState.showtimeWeather };
     });
   }
 
@@ -87,34 +87,32 @@ export default class App extends React.Component {
       height: "100%"
     };
 
-    let selectWeatherSecStyle = {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      fontFamily: "Raleway, sans-serif"
-    };
-
     return (
-      <main style={mainStyle}>
-        <section style={selectWeatherSecStyle} className="selectWeatherSec">
-          <SelectWeather
+      <React.Fragment>
+        <main style={mainStyle}>
+          <section>
+            <SelectWeather
+              requesting={requesting}
+              showtimeWeather={showtimeWeather}
+              selectWeather={this.selectWeatherTime}
+              refreshWeather={this.handleRefreshWeather}
+            />
+          </section>
+          <MainLogo requesting={requesting} request={getWeatherRequest} />
+          <Dashboard
+            request={getWeatherRequest}
+            success={getWeatherSuccess}
+            error={getWeatherError}
             requesting={requesting}
-            showtimeWeather={showtimeWeather}
-            selectWeather={this.selectWeatherTime}
+            data={weatherData}
+            getWeather={this.handleRequestWeather}
             refreshWeather={this.handleRefreshWeather}
           />
-        </section>
-        <MainLogo requesting={requesting} request={getWeatherRequest} />
-        <Dashboard
-          request={getWeatherRequest}
-          success={getWeatherSuccess}
-          error={getWeatherError}
-          requesting={requesting}
-          data={weatherData}
-          getWeather={this.handleRequestWeather}
-          refreshWeather={this.handleRefreshWeather}
-        />
-      </main>
+        </main>
+        {/* <footer>
+          <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+        </footer> */}
+      </React.Fragment>
     );
   }
 }

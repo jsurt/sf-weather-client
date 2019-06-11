@@ -2,6 +2,14 @@ import React from "react";
 import { Spring, Transition, animated } from "react-spring/renderprops";
 
 const styles = {
+  trackWrap: {
+    width: "250px",
+    margin: "auto",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontFamily: "Raleway, sans-serif"
+  },
   track: {
     display: "flex",
     alignItems: "center",
@@ -25,7 +33,7 @@ const styles = {
     cursor: "pointer"
   },
   label: {
-    padding: "5px"
+    padding: "10px"
   }
 };
 
@@ -41,7 +49,7 @@ export default class SelectWeather extends React.Component {
   render() {
     const { toggle } = this.state;
     const { requesting, showtimeWeather, selectWeather } = this.props;
-    const { track, marker, hover, label } = styles;
+    const { trackWrap, track, marker, hover, label } = styles;
     const showtimeLabel = (
       <Spring to={{ opacity: toggle ? 1 : 0.5 }}>
         {props => (
@@ -58,11 +66,18 @@ export default class SelectWeather extends React.Component {
     );
     const slider = (
       <div style={track}>
-        <Spring to={{ left: toggle ? "0px" : "54px" }}>
+        <Spring
+          from={{ left: toggle ? "54px" : "0px" }}
+          to={{ left: toggle ? "0px" : "54px" }}
+          config={{ tension: 190, friction: 14, precision: 0.01 }}
+        >
           {props => (
             <animated.div
               style={{ ...marker, ...props }}
-              onClick={() => this.setState({ toggle: !toggle })}
+              onClick={() => {
+                this.setState({ toggle: !toggle });
+                selectWeather();
+              }}
             />
           )}
         </Spring>
@@ -77,11 +92,11 @@ export default class SelectWeather extends React.Component {
         config={{ tension: 150, friction: 14 }}
       >
         {item => props => (
-          <React.Fragment>
+          <div style={{ ...trackWrap, ...props }}>
             {showtimeLabel}
-            <div style={props}>{slider}</div>
+            {slider}
             {currentLabel}
-          </React.Fragment>
+          </div>
         )}
       </Transition>
     );

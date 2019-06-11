@@ -11,12 +11,12 @@ export default class RequestWeatherBtn extends React.Component {
 
   styles = {
     getWeatherBtnStyles: {
-      height: "25px",
+      height: "30px",
       width: "162px",
       marginTop: "50px",
-      borderRadius: "1px",
-      border: "none",
-      background: "#bbbbbb"
+      borderRadius: "10px",
+      border: "2px solid #000000",
+      fontFamily: "Raleway, sans-serif"
     },
     hover: {
       background: "#eeeeee",
