@@ -22,7 +22,6 @@ export default class App extends React.Component {
   }
 
   handleRefreshWeather() {
-    // console.log(this.state.showtimeWeather);
     this.setState({
       getWeatherRequest: false,
       getWeatherSuccess: false,
@@ -34,7 +33,6 @@ export default class App extends React.Component {
   }
 
   handleRequestWeather() {
-    // console.log("Request for weather made");
     this.setState({ getWeatherRequest: true, requesting: true });
     this.requestWeather();
   }
@@ -47,11 +45,9 @@ export default class App extends React.Component {
     } else {
       url = `${SERVER_URL}/weather`;
     }
-    // console.log(url);
     fetch(url)
       .then(data => data.json())
       .then(json => {
-        // console.log("Data fetched");
         setTimeout(
           () =>
             this.setState({
@@ -70,9 +66,10 @@ export default class App extends React.Component {
 
   selectWeatherTime() {
     const { showtimeWeather } = this.state;
-    this.setState({ showtimeWeather: !showtimeWeather }, () => {
-      this.handleRefreshWeather();
+    this.setState(prevState => {
+      return { showtimeWeather: !prevState.showtimeWeather };
     });
+    setTimeout(() => this.refreshWeather(), 250);
   }
 
   render() {
@@ -92,26 +89,31 @@ export default class App extends React.Component {
     };
 
     return (
-      <main style={mainStyle}>
-        <section className="selectWeatherSec">
-          <SelectWeather
+      <React.Fragment>
+        <main style={mainStyle}>
+          <section>
+            <SelectWeather
+              requesting={requesting}
+              showtimeWeather={showtimeWeather}
+              selectWeather={this.selectWeatherTime}
+              refreshWeather={this.handleRefreshWeather}
+            />
+          </section>
+          <MainLogo requesting={requesting} request={getWeatherRequest} />
+          <Dashboard
+            request={getWeatherRequest}
+            success={getWeatherSuccess}
+            error={getWeatherError}
             requesting={requesting}
-            showtimeWeather={showtimeWeather}
-            selectWeather={this.selectWeatherTime}
+            data={weatherData}
+            getWeather={this.handleRequestWeather}
             refreshWeather={this.handleRefreshWeather}
           />
-        </section>
-        <MainLogo requesting={requesting} request={getWeatherRequest} />
-        <Dashboard
-          request={getWeatherRequest}
-          success={getWeatherSuccess}
-          error={getWeatherError}
-          requesting={requesting}
-          data={weatherData}
-          getWeather={this.handleRequestWeather}
-          refreshWeather={this.handleRefreshWeather}
-        />
-      </main>
+        </main>
+        {/* <footer>
+          <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+        </footer> */}
+      </React.Fragment>
     );
   }
 }
