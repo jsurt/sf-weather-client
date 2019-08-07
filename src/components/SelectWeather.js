@@ -36,11 +36,6 @@ const styles = {
     background: "#000000",
     cursor: "pointer"
   },
-  hover: {
-    background: "#333333",
-    cursor: "pointer",
-    width: "25px"
-  },
   label: {
     paddingLeft: "10px",
     paddingRight: "10px",
@@ -61,7 +56,7 @@ export default class SelectWeather extends React.Component {
   render() {
     const { toggle } = this.state;
     const { selectWeather } = this.props;
-    const { header, trackWrap, track, marker, hover, label } = styles;
+    const { header, trackWrap, track, marker, label } = styles;
     const showtimeLabel = (
       <Spring to={{ opacity: toggle ? 1 : 0.5 }}>
         {props => (

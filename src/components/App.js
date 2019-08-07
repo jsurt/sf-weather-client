@@ -65,7 +65,7 @@ export default class App extends React.Component {
   }
 
   selectWeatherTime() {
-    const { showtimeWeather } = this.state;
+    // const { showtimeWeather } = this.state;
     this.setState(prevState => {
       return { showtimeWeather: !prevState.showtimeWeather };
     });
