@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTransition, animated, config } from "react-spring";
+import { useTransition, animated } from "react-spring";
 
 const style = {
   container: {

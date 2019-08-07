@@ -69,7 +69,7 @@ export default class App extends React.Component {
     this.setState(prevState => {
       return { showtimeWeather: !prevState.showtimeWeather };
     });
-    setTimeout(() => this.refreshWeather(), 250);
+    setTimeout(() => this.handleRefreshWeather(), 250);
   }
 
   render() {

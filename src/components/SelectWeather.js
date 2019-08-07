@@ -1,22 +1,29 @@
 import React from "react";
 import { Spring, Transition } from "react-spring/renderprops";
-import {useSpring, animated} from 'react-spring'
+import { animated } from 'react-spring'
 
 const styles = {
+  header: {
+    fontFamily: "Raleway, sans-serif",
+    fontSize: "18px",
+    fontWeight: "100",
+    marginBottom: "10px"
+  },
   trackWrap: {
-    width: "250px",
+    width: "275px",
     margin: "auto",
+    marginTop: "0px",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    fontFamily: "Raleway, sans-serif"
+    alignItems: "center"
   },
   track: {
     display: "flex",
     alignItems: "center",
     width: "75px",
     height: "15px",
-    margin: "10px auto",
+    margin: "auto",
+    marginTop: "2px",
     background: "#eeeeee",
     borderRadius: "15px"
   },
@@ -31,10 +38,14 @@ const styles = {
   },
   hover: {
     background: "#333333",
-    cursor: "pointer"
+    cursor: "pointer",
+    width: "25px"
   },
   label: {
-    padding: "10px"
+    paddingLeft: "10px",
+    paddingRight: "10px",
+    marginTop: "0px",
+    fontFamily: "Raleway, sans-serif"
   }
 };
 
@@ -49,8 +60,8 @@ export default class SelectWeather extends React.Component {
 
   render() {
     const { toggle } = this.state;
-    const { requesting, showtimeWeather, selectWeather } = this.props;
-    const { trackWrap, track, marker, hover, label } = styles;
+    const { selectWeather } = this.props;
+    const { header, trackWrap, track, marker, hover, label } = styles;
     const showtimeLabel = (
       <Spring to={{ opacity: toggle ? 1 : 0.5 }}>
         {props => (
@@ -61,7 +72,7 @@ export default class SelectWeather extends React.Component {
     const currentLabel = (
       <Spring to={{ opacity: toggle ? 0.5 : 1 }}>
         {props => (
-          <animated.p style={{ ...label, ...props }}>Current</animated.p>
+          <animated.p style={{ ...label, ...props }}>Right Now</animated.p>
         )}
       </Spring>
     );
@@ -74,9 +85,11 @@ export default class SelectWeather extends React.Component {
         >
           {props => (
             <animated.div
-              style={{ ...marker, ...props }}
+              style={this.state.hover ? Object.assign({}, {...marker, ...props, width: "25px", height: "25px"}) : { ...marker, ...props }}
+              onMouseOver={() => {this.setState({ hover: true })}}
+              onMouseLeave={() => this.setState({ hover: false })}
               onClick={() => {
-                this.setState({ toggle: !toggle });
+                this.setState({ hover: false, toggle: !toggle });
                 selectWeather();
               }}
             />
@@ -84,7 +97,7 @@ export default class SelectWeather extends React.Component {
         </Spring>
       </div>
     );
-    const springs = useSpring({from:{left: "0px"}, to:{left: "54px"}});
+    //const springs = useSpring({from:{left: "0px"}, to:{left: "54px"}});
     const item = slider;
     return (
       <Transition
@@ -94,11 +107,14 @@ export default class SelectWeather extends React.Component {
         config={{ tension: 150, friction: 14 }}
       >
         {item => props => (
-          <div style={{ ...trackWrap, ...props }}>
-            {showtimeLabel}
-            {slider}
-            {currentLabel}
-          </div>
+          <section>
+            <h4 style={header}>I want the weather in Bardstown for:</h4>
+            <div style={{ ...trackWrap, ...props }}>
+              {showtimeLabel}
+              {slider}
+              {currentLabel}
+            </div>
+          </section>
         )}
       </Transition>
     );
