@@ -41,9 +41,9 @@ export default class App extends React.Component {
     const { showtimeWeather } = this.state;
     let url;
     if (showtimeWeather) {
-      url = `${SERVER_URL}/showtime_weather`;
+      url = `${SERVER_URL}/showtime`;
     } else {
-      url = `${SERVER_URL}/weather`;
+      url = `${SERVER_URL}/current`;
     }
     fetch(url)
       .then(data => data.json())
